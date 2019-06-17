@@ -2,13 +2,12 @@
 import BaseView from 'frontend/Containers/BaseView'
 import React, { Component } from 'react'
 import {
-  StyleSheet, Text, View, TouchableOpacity
+  StyleSheet, Text, View
 } from 'react-native'
 import { connect } from 'react-redux'
-import { THEME_DEFAULT, width, height, scale } from 'utils/globalStyles'
-// import PropTypes from 'prop-types'
-// import { actionsType, RouteKey } from 'utils/globalConstants'
+import { THEME_DEFAULT, height, scale } from 'utils/globalStyles'
 import { getRandomNumber, copyObject } from 'utils/globalFunctions'
+import Takuzu from 'frontend/Components/Takuzu'
 
 // Create cell value {(-1 || 0 || 1), isDefault}
 const createCellValue = (isDefault) => {
@@ -17,9 +16,10 @@ const createCellValue = (isDefault) => {
 
 const sum = (arr) => {
   let sum = 0
-  arr.map(i => { sum += i.value })
+  arr.map(i => { if (i.value >= 0) sum += i.value })
   return sum
 }
+
 class Play extends Component {
   constructor (props) {
     super(props)
@@ -57,18 +57,21 @@ class Play extends Component {
     // // Add default value (random)
     const numRandom = Math.round(getRandomNumber(2, 4))
     let tempSet = new Set()
+    let tempX = new Set()
+    let tempY = new Set()
     let position = {x: 0, y: 0}
 
     do {
       const x = getRandomNumber(0, 3)
       const y = getRandomNumber(0, 3)
       position = {x, y}
-      if (!tempSet.has(position)) {
+      if (!tempSet.has(position) && !tempX.has(x) && !tempY.has(y)) {
         tempSet.add(position)
+        tempX.add(x)
+        tempY.add(y)
         takuzu[x][y] = createCellValue(true)
       }
     } while (tempSet.size < numRandom)
-    console.log('takuzu: ', takuzu)
     this.setState({takuzu})
     return takuzu
   }
@@ -97,34 +100,37 @@ class Play extends Component {
     let takuzu = copyObject(this.state.takuzu)
     takuzu[i][j].value = (item.value === -1 || item.value === 1) ? 0 : 1
     this.setState({takuzu}, () =>
-      this.checkRules(this.state.takuzu))
+      this.checkRules())
   }
-  checkRules = (takuzu) => {
-    console.log('ruleWithRow(takuzu): ', takuzu, this.ruleWithRow(takuzu))
+  checkRules = () => {
+    const isCorrect = this.rule()
+    if (isCorrect) {
+      alert('OK')
+    }
   }
 
-  // Rule1: hang va cot co so 1, 0 bang nhau
-  ruleWithRow = (takuzu) => {
-    let rowEquas = new Set()
-    let columnEquas = new Set()
-    let i = 0
-    let j = 0
-    for (i; i < this.takuzuSize; i++) {
-      let column = []
-      for (j; j < this.takuzuSize; j++) {
+  // Rule
+  rule = () => {
+    const { takuzu } = this.state
+
+    let rowEquas = {}
+    let columnEquas = {}
+
+    for (let i = 0; i < this.takuzuSize; i++) {
+      this.column = []
+
+      for (let j = 0; j < this.takuzuSize; j++) {
         // kiem tra 3 phan tu lien ke ROW
         if (takuzu[i][j + 1] !== undefined && takuzu[i][j + 2] !== undefined) {
           let sum3 = 0
-
           if (takuzu[i][j].value >= 0) sum3 += takuzu[i][j].value
           if (takuzu[i][j + 1].value >= 0) sum3 += takuzu[i][j + 1].value
           if (takuzu[i][j + 2].value >= 0) sum3 += takuzu[i][j + 2].value
           if (sum3 === 0 || sum3 === 3) {
-            console.log('kiem tra 3 phan tu lien ke Row: ', i, j, 'value: ', takuzu[i][j].value, takuzu[i][j + 1], takuzu[i][j + 2], 'sum: ', sum3)
-
             return false
           }
         }
+
         // kiem tra 3 phan tu lien ke COLUMN
         if (takuzu[j + 1] !== undefined && takuzu[j + 1][i] !== undefined && takuzu[j + 2] !== undefined && takuzu[j + 2][i] !== undefined) {
           let sum3 = 0
@@ -133,76 +139,50 @@ class Play extends Component {
           if (takuzu[j + 1][i].value >= 0) sum3 += takuzu[j + 1][i].value
           if (takuzu[j + 2][i].value >= 0) sum3 += takuzu[j + 2][i].value
           if (sum3 === 0 || sum3 === 3) {
-            console.log('kiem tra 3 phan tu lien ke Column: ', sum3)
             return false
           }
         }
-        column[j] = takuzu[j][i]
-        console.log('add column: ', takuzu[j][i])
+        this.column.push(takuzu[j][i])
       }
       // kiem tra so phan tu 0, 1 co bang nhau
       if (sum(takuzu[i]) !== this.takuzuSize / 2) {
-        console.log('row count: ', takuzu[i], sum(takuzu[i]))
         return false
       }
-      if (sum(column) !== this.takuzuSize / 2) {
-        console.log('column count: ', column, sum(column))
+      if (sum(this.column) !== this.takuzuSize / 2) {
         return false
       }
       // Kiem tra moi dong la unique
-      if (rowEquas.has(takuzu[i])) {
-        console.log('rowEquas: false')
+      let arrValueRow = []
+      takuzu[i].map(i => arrValueRow.push(i.value))
+      arrValueRow = arrValueRow.join('')
+
+      if (rowEquas[arrValueRow] !== undefined) {
         return false
       } else {
-        rowEquas.add(takuzu[i])
+        rowEquas[arrValueRow] = arrValueRow
       }
       // Kiem tra moi hang la unique
-      if (columnEquas.has(column)) {
-        console.log('rowEquas: false')
+      let arrValueColumn = []
+      this.column.map(t => arrValueColumn.push(t.value))
+      arrValueColumn = arrValueColumn.join('')
+
+      if (columnEquas[arrValueColumn] !== undefined) {
         return false
       } else {
-        columnEquas.add(column)
+        columnEquas[arrValueColumn] = arrValueColumn
       }
     }
     return true
   }
-  renderTakuzuCell = (item, i, j) => {
-    return (
-      <TouchableOpacity
-        key={`${i}${j}`}
-        style={[styles.cell, {
-          opacity: item.isDefault ? 1 : 0.8,
-          backgroundColor: item.value === 1 ? THEME_DEFAULT.colorBackground : item.value === 0 ? THEME_DEFAULT.colorDanger : THEME_DEFAULT.colorPlaceholder
-        }]}
-        onPress={() => this.onPressCell(item, i, j)}
-        disabled={item.isDefault}
-      >
-        <Text style={[styles.cellText]}>{`${item.value === -1 ? '' : item.value}`}</Text>
-      </TouchableOpacity>
-    )
-  }
-  renderTakuzu = () => {
-    const { takuzu } = this.state
-    return (
-      <View style={styles.takuzu}>
-        { takuzu.map((t, i) => {
-          return (
-            <View key={`${i}`} style={styles.takuzuRow} >
-              {t.map((item, j) => this.renderTakuzuCell(item, i, j))}
-            </View>
-          )
-        }) }
-      </View>
-    )
-  }
+
   render () {
-    const { minutes, seconds } = this.state
+    const { minutes, seconds, takuzu } = this.state
     return (
       <BaseView >
         <View style={styles.container}>
           <Text style={styles.timerTitle}>Timer</Text>
           <Text style={styles.timer}>{`${minutes}:${seconds}`}</Text>
-          {this.renderTakuzu()}
+          <Takuzu takuzu={takuzu} onPressCell={this.onPressCell}/>
         </View>
       </BaseView>
     )
@@ -223,24 +203,6 @@ Play.propTypes = {
 }
 
 const styles = StyleSheet.create({
-  takuzuRow: {
-    flexDirection: 'row',
-    width: '100%',
-    height: '22%',
-    justifyContent: 'space-around'
-  },
-  cell: {
-    width: '22%',
-    height: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 5
-  },
-  cellText: {
-    color: THEME_DEFAULT.colorPrimary,
-    fontSize: scale(22),
-    fontWeight: 'bold'
-  },
   timerTitle: {
     marginTop: height(17),
     color: THEME_DEFAULT.colorPrimary,
@@ -256,16 +218,5 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: THEME_DEFAULT.colorBackground,
     alignItems: 'center'
-  },
-  takuzu: {
-    width: width(82),
-    height: width(82),
-
-    justifyContent: 'space-around',
-    backgroundColor: THEME_DEFAULT.colorPrimary,
-
-    borderWidth: 2,
-    borderColor: THEME_DEFAULT.colorPrimary,
-    borderRadius: 5
   }
 })
