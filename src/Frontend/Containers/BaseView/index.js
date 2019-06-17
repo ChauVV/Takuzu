@@ -6,7 +6,7 @@ import {
 } from 'react-native'
 import { isIphoneX } from 'react-native-iphone-x-helper'
 import { connect } from 'react-redux'
-import { THEME_DEFAULT, ISIOS, scale } from 'utils/globalStyles'
+import { THEME_DEFAULT, isIOS, scale } from 'utils/globalStyles'
 import PropTypes from 'prop-types'
 import XButton from 'frontend/Components/XButton'
 
@@ -122,13 +122,13 @@ const styles = StyleSheet.create({
     width: '70%'
   },
   header: {
-    height: ISIOS ? isIphoneX() ? 90 : 80 : 50,
+    height: isIOS ? isIphoneX() ? 90 : 80 : 50,
     backgroundColor: THEME_DEFAULT.colorTextRed,
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: ISIOS ? isIphoneX() ? 34 : 12 : 0
+    paddingTop: isIOS ? isIphoneX() ? 34 : 12 : 0
   },
   textTimer: {
     fontSize: scale(13),
@@ -147,14 +147,14 @@ const styles = StyleSheet.create({
     left: 20,
     width: 60,
     height: '100%',
-    paddingTop: ISIOS ? isIphoneX() ? 34 : 12 : 0,
+    paddingTop: isIOS ? isIphoneX() ? 34 : 12 : 0,
     justifyContent: 'center'
   },
   groubBtnRight: {
     position: 'absolute',
     right: 20,
     height: '100%',
-    paddingTop: ISIOS ? isIphoneX() ? 34 : 12 : 0,
+    paddingTop: isIOS ? isIphoneX() ? 34 : 12 : 0,
     justifyContent: 'space-between',
     flexDirection: 'row',
     alignItems: 'center'

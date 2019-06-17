@@ -9,7 +9,7 @@ export const width = (num) => MYWIDTH * (num / 100)
 export const height = (num) => MYHEIGHT * (num / 100)
 export const scale = (num) => num * (CORE_RATIO + (CORE_RATIO - DEVICE_RATIO)) / CORE_RATIO
 
-export const ISIOS = Platform.OS === 'ios'
+export const isIOS = Platform.OS === 'ios'
 
 export const THEME_DEFAULT = {
   // FONT

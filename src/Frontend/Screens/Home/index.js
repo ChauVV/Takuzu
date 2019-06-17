@@ -6,7 +6,7 @@ import {
 } from 'react-native'
 import { connect } from 'react-redux'
 import SplashScreen from 'react-native-splash-screen'
-import { THEME_DEFAULT, ISIOS, scale } from 'utils/globalStyles'
+import { THEME_DEFAULT, isIOS, scale } from 'utils/globalStyles'
 import PropTypes from 'prop-types'
 import { actionsType, RouteKey } from 'utils/globalConstants'
 import { getActiveScreen } from 'utils/globalFunctions'
@@ -27,7 +27,7 @@ class Home extends Component {
     BackHandler.addEventListener('hardwareBackPress', this.onBackPress)
   }
   componentDidMount () {
-    if (ISIOS) {
+    if (isIOS) {
       SplashScreen.hide()
     } else {
       setTimeout(() => SplashScreen.hide(), 100)

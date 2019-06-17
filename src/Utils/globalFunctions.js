@@ -32,4 +32,4 @@ export const sortArray = (arrSort, key) => {
   })
 }
 
-export const getRandomNumber = (min, max) => Math.random() * (max - min) + min
+export const getRandomNumber = (min, max, isRound = true) => isRound ? Math.round(Math.random() * (max - min) + min) : Math.random() * (max - min) + min
