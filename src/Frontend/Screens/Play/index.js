@@ -9,7 +9,7 @@ import { THEME_DEFAULT, height, scale } from 'utils/globalStyles'
 import { getRandomNumber, copyObject } from 'utils/globalFunctions'
 import Takuzu from 'frontend/Components/Takuzu'
 import XButton from 'frontend/Components/XButton'
-import { actionsType } from 'utils/globalConstants'
+import { actionsType, RouteKey } from 'utils/globalConstants'
 
 // Create cell value {(-1 || 0 || 1), isDefault}
 const createCellValue = (isDefault) => {
@@ -147,6 +147,7 @@ class Play extends Component {
           data: takuzu
         }
         this.props.addScore(score)
+        this.props.gotoResults()
       }
     } catch (error) {
       console.log('checkRules: ', error)
@@ -270,7 +271,9 @@ const mapStateToProps = (state) => ({
 })
 const mapactionsTypeToProps = (dispatch) => ({
   back: () => dispatch({ type: actionsType.POP }),
-  addScore: (score) => dispatch({ type: actionsType.UPDATE_HIGHT_SCORE, payload: score })
+  addScore: (score) => dispatch({ type: actionsType.UPDATE_HIGHT_SCORE, payload: score }),
+  gotoResults: () => dispatch({ type: actionsType.PUSH, routeName: RouteKey.Results })
+
 })
 export default connect(mapStateToProps, mapactionsTypeToProps)(Play)
 
