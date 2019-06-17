@@ -49,7 +49,7 @@ class Home extends Component {
   }
 
   render () {
-    const { gotoPlay, gotoResults } = this.props
+    const { gotoPlay, gotoResults, getHeightScores } = this.props
 
     return (
       <BaseView >
@@ -60,7 +60,10 @@ class Home extends Component {
           <ScrollView>
             <View style={styles.content}>
               <MainButton iconBtn={icGamePad(THEME_DEFAULT.colorRed)} onPress={() => gotoPlay()} title={'Play'} marginTop/>
-              <MainButton iconBtn={icTopic(THEME_DEFAULT.colorRed)} onPress={() => gotoResults()} title={'Results'} marginTop/>
+              <MainButton iconBtn={icTopic(THEME_DEFAULT.colorRed)} onPress={() => {
+                gotoResults()
+                getHeightScores()
+              }} title={'Results'} marginTop/>
             </View>
           </ScrollView>
         </View>
@@ -74,7 +77,8 @@ const mapStateToProps = (state) => ({
 })
 const mapactionsTypeToProps = (dispatch) => ({
   gotoPlay: () => dispatch({ type: actionsType.PUSH, routeName: RouteKey.Play }),
-  gotoResults: () => dispatch({ type: actionsType.PUSH, routeName: RouteKey.Results })
+  gotoResults: () => dispatch({ type: actionsType.PUSH, routeName: RouteKey.Results }),
+  getHeightScores: () => dispatch({ type: actionsType.GET_HIGHT_SCORES })
 })
 export default connect(mapStateToProps, mapactionsTypeToProps)(Home)
 

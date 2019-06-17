@@ -31,6 +31,8 @@ PODS:
     - React/Core
     - React/fishhook
     - React/RCTBlob
+  - RNCAsyncStorage (1.5.0):
+    - React
   - RNDeviceInfo (0.21.5):
     - React
   - RNVectorIcons (6.5.0):
@@ -50,6 +52,7 @@ DEPENDENCIES:
   - React/RCTText (from `../node_modules/react-native`)
   - React/RCTVibration (from `../node_modules/react-native`)
   - React/RCTWebSocket (from `../node_modules/react-native`)
+  - "RNCAsyncStorage (from `../node_modules/@react-native-community/async-storage`)"
   - RNDeviceInfo (from `../node_modules/react-native-device-info`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga/yoga.podspec`)
@@ -61,6 +64,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-spinkit"
   react-native-splash-screen:
     :path: "../node_modules/react-native-splash-screen"
+  RNCAsyncStorage:
+    :path: "../node_modules/@react-native-community/async-storage"
   RNDeviceInfo:
     :path: "../node_modules/react-native-device-info"
   RNVectorIcons:
@@ -72,10 +77,11 @@ SPEC CHECKSUMS:
   React: 1d605e098d69bdf08960787f3446f0a9dc2e2ccf
   react-native-spinkit: c9f5826e1a0bf0da889b3795278eb96ae15c1350
   react-native-splash-screen: a49be22f0f6648b8416f3bd28258645eeaa5b42b
+  RNCAsyncStorage: 6ae5aba8a41bfe0a9f21885ec91faf23ca3fe7ee
   RNDeviceInfo: 568c5641057313b4912d08a7742ff0b2f753ed5c
   RNVectorIcons: 66af4d5c8ff4f584c7b7cd9c4b0780920f27fce2
   yoga: 128daf064cacaede0c3bb27424b6b4c71052e6cd
 
-PODFILE CHECKSUM: f6e71c40a8209b9030f3686c2beea18809461ba4
+PODFILE CHECKSUM: e8346a87cab2d4508888a042007999a5f4845b48
 
 COCOAPODS: 1.5.3

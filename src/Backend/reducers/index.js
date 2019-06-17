@@ -11,5 +11,5 @@ export default combineReducers({
   language: languageReducer,
   navigate: routesReducer,
   internet: internetReducer,
-  hightScore: hightScoreReducer
+  hightScores: hightScoreReducer
 })

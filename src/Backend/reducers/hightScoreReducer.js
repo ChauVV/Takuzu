@@ -1,8 +1,9 @@
 import { actionsType, initState } from 'utils/globalConstants'
 
-export default (state = initState.hightScore, action) => {
+export default (state = initState.hightScores, action) => {
   switch (action.type) {
-  case actionsType.SET_LANGUGAE:
+  case actionsType.UPDATE_HIGHT_SCORE_SUCCESS:
+  case actionsType.GET_HIGHT_SCORES_SUCCESS:
     return action.payload
   default:
     return state

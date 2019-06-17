@@ -647,6 +647,11 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
+"@react-native-community/async-storage@^1.5.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@react-native-community/async-storage/-/async-storage-1.5.0.tgz#647ffcd832272068b0be57332e08d73036ed391f"
+  integrity sha512-2yE4RzQ5IL+UTPhuMY0ykNRKHf1m90jOnmp8fcDPUun5U97cXlorjI4p66ovDgF0FuOv8ZpiUKvunGy3qqBxwg==
+
 "@react-native-community/cli@^1.2.1":
   version "1.9.9"
   resolved "https://registry.yarnpkg.com/@react-native-community/cli/-/cli-1.9.9.tgz#79bba50258ad8cac2d66148ef649bdbf7b1a5aca"
@@ -4019,6 +4024,11 @@ lodash-es@^4.2.1:
   resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.11.tgz#145ab4a7ac5c5e52a3531fb4f310255a152b4be0"
   integrity sha512-DHb1ub+rMjjrxqlB3H56/6MXtm1lSksDp2rA2cNWjG8mlDUYFhUj3Di2Zn5IwSU87xLv8tNIQ7sSwE/YOX/D/Q==
 
+lodash.merge@4.6.0:
+  version "4.6.0"
+  resolved "https://registry.yarnpkg.com/lodash.merge/-/lodash.merge-4.6.0.tgz#69884ba144ac33fe699737a6086deffadd0f89c5"
+  integrity sha1-aYhLoUSsM/5plzemCG3v+t0PicU=
+
 lodash.pad@^4.1.0:
   version "4.5.1"
   resolved "https://registry.yarnpkg.com/lodash.pad/-/lodash.pad-4.5.1.tgz#4330949a833a7c8da22cc20f6a26c4d59debba70"
@@ -5409,6 +5419,13 @@ react-native-screens@^1.0.0-alpha.11:
   version "1.0.0-alpha.22"
   resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-1.0.0-alpha.22.tgz#7a120377b52aa9bbb94d0b8541a014026be9289b"
   integrity sha512-kSyAt0AeVU6N7ZonfV6dP6iZF8B7Bce+tk3eujXhzBGsLg0VSLnU7uE9VqJF0xdQrHR91ZjGgVMieo/8df9KTA==
+
+react-native-simple-store@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-simple-store/-/react-native-simple-store-2.0.0.tgz#f50652ee477b89a2c9812402298532542f8e78c9"
+  integrity sha512-rik+GcZeamdu7Nb36DXkKe4R+Gm+3WF6lTQ/jGNgqpxdXbJ6/TTXeK9dWVFEicDr1ib1bWoyjI52vu3t7hzE/A==
+  dependencies:
+    lodash.merge "4.6.0"
 
 react-native-spinkit@^1.2.0:
   version "1.3.0"

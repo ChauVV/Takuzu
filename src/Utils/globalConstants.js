@@ -13,6 +13,14 @@ export const actionsType = {
   UPDATE_INTERNET_STATUS: 'UPDATE_INTERNET_STATUS',
   SET_CURRENCY: 'SET_CURRENCY',
   SET_LANGUGAE: 'SET_LANGUGAE',
+  // HIGHT_SCORE
+  UPDATE_HIGHT_SCORE: 'UPDATE_HIGHT_SCORE',
+  UPDATE_HIGHT_SCORE_SUCCESS: 'UPDATE_HIGHT_SCORE_SUCCESS',
+  UPDATE_HIGHT_SCORE_FAIL: 'UPDATE_HIGHT_SCORE_FAIL',
+
+  GET_HIGHT_SCORES: 'GET_HIGHT_SCORES',
+  GET_HIGHT_SCORES_SUCCESS: 'GET_HIGHT_SCORES_SUCCESS',
+  GET_HIGHT_SCORES_FAIL: 'GET_HIGHT_SCORES_FAIL',
   // NAVIGATION
   PUSH: 'push',
   POP: 'pop',
@@ -24,7 +32,13 @@ export const actionsType = {
 export const initState = {
   currency: 'VND',
   language: 'vi',
-  hightScore: []
+  hightScores: {
+    scores: [],
+    new: {}
+  }
+}
+export const KeyStore = {
+  HIGHT_SCORES: 'HIGHT_SCORES'
 }
 /**
  * TIME_OUT: 30s

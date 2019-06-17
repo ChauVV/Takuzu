@@ -1,42 +1,80 @@
 
-import ServerAPI from 'backend/api'
 import { Observable } from 'rxjs'
-import { actionsType, statusCode
+import SimpleStore from 'react-native-simple-store'
+import {
+  actionsType, KeyStore
 } from 'utils/globalConstants'
+import {
+  sortArray
+} from 'utils/globalFunctions'
 
+const addScore = async (score) => {
+  let heightScores = await SimpleStore.get(KeyStore.HIGHT_SCORES) || {}
+  try {
+    if (heightScores.scores === undefined) {
+      heightScores.scores = [score]
+      heightScores.new = score
+    } else {
+      if (heightScores.scores.length < 5) {
+        heightScores.scores.push(score)
+      } else {
+        if (heightScores.scores[heightScores.scores.length - 1].secondsRemaining < score.secondsRemaining) {
+          heightScores.scores[heightScores.scores.length - 1] = score
+        }
+      }
+
+      heightScores.new = score
+    }
+  } catch (error) {
+    heightScores.scores = [score]
+    heightScores.new = score
+  }
+  const arrTemp = await sortArray(heightScores.scores, 'secondsRemaining')
+  heightScores.scores = arrTemp
+  await SimpleStore.save(KeyStore.HIGHT_SCORES, heightScores)
+  return heightScores
+}
+const getHightScore = async () => {
+  let heightScores = await SimpleStore.get(KeyStore.HIGHT_SCORES) || {}
+  if (heightScores.scores === undefined) {
+    heightScores.scores = []
+    heightScores.new = {}
+  }
+  return heightScores
+}
 export default (action$, store, dependencies) => {
-  const getItembyCategoryID$ = action$.ofType(actionsType.GET_ITEMS).switchMap((action) => {
-    return Observable.fromPromise(ServerAPI.getItems(action.payload))
-      .takeUntil(Observable.timer(TIME_OUT))
-      .mergeMap((response) => {
+  const addScore$ = action$.ofType(actionsType.UPDATE_HIGHT_SCORE).switchMap((action) => {
+    return Observable.fromPromise(addScore(action.payload))
+      .mergeMap((hightScores) => {
         try {
-          if (response && response.status === statusCode.CODE_200) {
-            if (response.data.status === statusCode.CODE_200) {
-              return Observable.concat(
-                Observable.of({ type: actionsType.GET_ITEMS_SUCCESS, items: response.data.data })
-              )
-            } else {
-              return Observable.concat(
-                // Observable.of({ type: actionsType.SHOW_NOTIFICATION, payload: { title: ttError, message: strMessageTimeout, isShow: true } }),
-                Observable.of({ type: actionsType.GET_ITEMS_FAIL })
-              )
-            }
-          } else {
-            return Observable.concat(
-              // Observable.of({ type: actionsType.SHOW_NOTIFICATION, payload: { title: ttError, message: strMessageTimeout, isShow: true } }),
-              Observable.of({ type: actionsType.GET_ITEMS_FAIL })
-            )
-          }
+          return Observable.concat(
+            Observable.of({ type: actionsType.UPDATE_HIGHT_SCORE_SUCCESS, payload: hightScores })
+          )
         } catch (error) {
           return Observable.concat(
-            // Observable.of({ type: actionsType.SHOW_NOTIFICATION, payload: { title: ttError, message: strMessageTimeout, isShow: true } }),
-            Observable.of({ type: actionsType.GET_ITEMS_FAIL })
+            Observable.of({ type: actionsType.UPDATE_HIGHT_SCORE_FAIL })
+          )
+        }
+      })
+  })
+
+  const getHightScores$ = action$.ofType(actionsType.GET_HIGHT_SCORES).switchMap((action) => {
+    return Observable.fromPromise(getHightScore())
+      .mergeMap((hightScores) => {
+        try {
+          return Observable.concat(
+            Observable.of({ type: actionsType.GET_HIGHT_SCORES_SUCCESS, payload: hightScores })
+          )
+        } catch (error) {
+          return Observable.concat(
+            Observable.of({ type: actionsType.GET_HIGHT_SCORES_FAIL })
           )
         }
       })
   })
 
   return Observable.merge(
-    getItembyCategoryID$
+    addScore$,
+    getHightScores$
   )
 }
