@@ -15,6 +15,11 @@ const createCellValue = (isDefault) => {
   return { value: isDefault ? getRandomNumber(0, 1) : -1, isDefault }
 }
 
+const sum = (arr) => {
+  let sum = 0
+  arr.map(i => { sum += i.value })
+  return sum
+}
 class Play extends Component {
   constructor (props) {
     super(props)
@@ -91,12 +96,75 @@ class Play extends Component {
   onPressCell = (item, i, j) => {
     let takuzu = copyObject(this.state.takuzu)
     takuzu[i][j].value = (item.value === -1 || item.value === 1) ? 0 : 1
-    this.setState({takuzu})
-
-    this.checkRules(takuzu)
+    this.setState({takuzu}, () =>
+      this.checkRules(this.state.takuzu))
   }
   checkRules = (takuzu) => {
+    console.log('ruleWithRow(takuzu): ', takuzu, this.ruleWithRow(takuzu))
+  }
 
+  // Rule1: hang va cot co so 1, 0 bang nhau
+  ruleWithRow = (takuzu) => {
+    let rowEquas = new Set()
+    let columnEquas = new Set()
+    let i = 0
+    let j = 0
+    for (i; i < this.takuzuSize; i++) {
+      let column = []
+      for (j; j < this.takuzuSize; j++) {
+        // kiem tra 3 phan tu lien ke ROW
+        if (takuzu[i][j + 1] !== undefined && takuzu[i][j + 2] !== undefined) {
+          let sum3 = 0
+
+          if (takuzu[i][j].value >= 0) sum3 += takuzu[i][j].value
+          if (takuzu[i][j + 1].value >= 0) sum3 += takuzu[i][j + 1].value
+          if (takuzu[i][j + 2].value >= 0) sum3 += takuzu[i][j + 2].value
+          if (sum3 === 0 || sum3 === 3) {
+            console.log('kiem tra 3 phan tu lien ke Row: ', i, j, 'value: ', takuzu[i][j].value, takuzu[i][j + 1], takuzu[i][j + 2], 'sum: ', sum3)
+
+            return false
+          }
+        }
+        // kiem tra 3 phan tu lien ke COLUMN
+        if (takuzu[j + 1] !== undefined && takuzu[j + 1][i] !== undefined && takuzu[j + 2] !== undefined && takuzu[j + 2][i] !== undefined) {
+          let sum3 = 0
+
+          if (takuzu[j][i].value >= 0) sum3 += takuzu[j][i].value
+          if (takuzu[j + 1][i].value >= 0) sum3 += takuzu[j + 1][i].value
+          if (takuzu[j + 2][i].value >= 0) sum3 += takuzu[j + 2][i].value
+          if (sum3 === 0 || sum3 === 3) {
+            console.log('kiem tra 3 phan tu lien ke Column: ', sum3)
+            return false
+          }
+        }
+        column[j] = takuzu[j][i]
+        console.log('add column: ', takuzu[j][i])
+      }
+      // kiem tra so phan tu 0, 1 co bang nhau
+      if (sum(takuzu[i]) !== this.takuzuSize / 2) {
+        console.log('row count: ', takuzu[i], sum(takuzu[i]))
+        return false
+      }
+      if (sum(column) !== this.takuzuSize / 2) {
+        console.log('column count: ', column, sum(column))
+        return false
+      }
+      // Kiem tra moi dong la unique
+      if (rowEquas.has(takuzu[i])) {
+        console.log('rowEquas: false')
+        return false
+      } else {
+        rowEquas.add(takuzu[i])
+      }
+      // Kiem tra moi hang la unique
+      if (columnEquas.has(column)) {
+        console.log('rowEquas: false')
+        return false
+      } else {
+        columnEquas.add(column)
+      }
+    }
+    return true
   }
   renderTakuzuCell = (item, i, j) => {
     return (
