@@ -2,6 +2,7 @@ package com.takuzu;
 
 import com.facebook.react.ReactActivity;
 import android.content.Intent;
+import android.os.Bundle;
 
 import org.devio.rn.splashscreen.SplashScreen;
 
