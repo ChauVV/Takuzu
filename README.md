@@ -1,11 +1,11 @@
 # Takuzu
 
 <h1>Install</h1>
-```js
+```bash
 yarn
 ```
 <h1>Run</h1>
-```js
+```bash1
 npm run ios
 npm run android
 ```
