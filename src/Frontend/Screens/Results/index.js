@@ -25,13 +25,17 @@ const renderSCore = (ob) => {
 }
 
 const Recent = ({item}) => {
-  return (
-    <View style={[styles.cell, styles.footer]}>
-      <Text style={styles.cellTextBold}>{`Recent:`}</Text>
-      <Text style={styles.cellText}>{`${item.timeDisplay}`}</Text>
-      <Text style={styles.cellTextDate}>{`${strToTime(item.date)}`}</Text>
-    </View>
-  )
+  if (item.timeDisplay !== undefined) {
+    return (
+      <View style={[styles.cell, styles.footer]}>
+        <Text style={styles.cellTextBold}>{`Recent:`}</Text>
+        <Text style={styles.cellText}>{`${item.timeDisplay}`}</Text>
+        <Text style={styles.cellTextDate}>{`${strToTime(item.date)}`}</Text>
+      </View>
+    )
+  } else {
+    return (<View/>)
+  }
 }
 const NaviButton = ({title = '', onPress = () => {}}) => {
   return (

@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.takuzu">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.takuzu">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -9,6 +10,8 @@
       android:icon="@mipmap/ic_launcher"
       android:allowBackup="false"
       android:largeHeap="true"
+        tools:replace="android:appComponentFactory"
+        android:appComponentFactory="whateverString"
       android:theme="@style/AppTheme">
       <activity
         android:name=".MainActivity"

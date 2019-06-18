@@ -22,8 +22,6 @@ target 'Takuzu' do
 
   pod 'RNDeviceInfo', :path => '../node_modules/react-native-device-info'
 
-  pod 'react-native-spinkit', :path => '../node_modules/react-native-spinkit'
-
   pod 'react-native-splash-screen', :path => '../node_modules/react-native-splash-screen'
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'

@@ -9,7 +9,6 @@ import com.facebook.react.ReactApplication;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
-import com.react.rnspinkit.RNSpinkitPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -27,7 +26,7 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
     super.attachBaseContext(base);
     MultiDex.install(this);
   }
-  
+
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
     @Override
     public boolean getUseDeveloperSupport() {
@@ -41,7 +40,6 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
             new AsyncStoragePackage(),
             new VectorIconsPackage(),
             new SplashScreenReactPackage(),
-            new RNSpinkitPackage(),
             new RNDeviceInfo()
       );
     }
