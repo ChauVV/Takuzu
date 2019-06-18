@@ -4,6 +4,7 @@
 
 ```bash
 $ yarn
+$ cd ios && pod install
 
 $ npm run ios
 ```
