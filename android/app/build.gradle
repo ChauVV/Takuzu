@@ -96,6 +96,15 @@ def enableProguardInReleaseBuilds = false
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
+  signingConfigs {
+        release {
+            storeFile file('keystore')
+            storePassword '123123'
+            keyAlias 'keystore'
+            keyPassword '123123'
+        }
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -107,6 +116,12 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+
+        multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
+    }
+    dexOptions {
+        javaMaxHeapSize "4g"
     }
     splits {
         abi {
@@ -119,6 +134,7 @@ android {
     buildTypes {
         release {
             minifyEnabled enableProguardInReleaseBuilds
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }

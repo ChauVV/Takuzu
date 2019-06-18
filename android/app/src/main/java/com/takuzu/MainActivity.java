@@ -1,6 +1,9 @@
 package com.takuzu;
 
 import com.facebook.react.ReactActivity;
+import android.content.Intent;
+
+import org.devio.rn.splashscreen.SplashScreen;
 
 public class MainActivity extends ReactActivity {
 
@@ -11,5 +14,19 @@ public class MainActivity extends ReactActivity {
     @Override
     protected String getMainComponentName() {
         return "Takuzu";
+    }
+
+    @Override
+    public void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+    }
+
+     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+
+        SplashScreen.show(this);
+        super.onCreate(savedInstanceState);
+
     }
 }
