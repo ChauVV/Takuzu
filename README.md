@@ -1,14 +1,15 @@
 # Takuzu
 
 <h1>Install</h1>
+
 ```bash
-yarn
+$ yarn
+
+$ npm run ios
+$ npm run android
 ```
-<h1>Run</h1>
-```bash1
-npm run ios
-npm run android
-```
+
+
 
 | Screen Home | Screen Play | Screen Results |
 | :---: |:---:|:---:|
