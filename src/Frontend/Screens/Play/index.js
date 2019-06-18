@@ -37,7 +37,8 @@ class Play extends Component {
       hours: '00',
       minutes: '00',
       seconds: '00',
-      takuzu: []
+      takuzu: [],
+      isSummit: false
     })
     this.secondsRemaining = 0
     this.takuzuSize = 4
@@ -64,7 +65,8 @@ class Play extends Component {
       hours: '00',
       minutes: '00',
       seconds: '00',
-      takuzu: []
+      takuzu: [],
+      isSummit: false
     })
     this.secondsRemaining = 0
     this.takuzuSize = 4
@@ -129,7 +131,7 @@ class Play extends Component {
     }
   }
   onPressCell = (item, i, j) => {
-    if (this.intervalHandle) {
+    if (!this.state.isSummit) {
       let takuzu = copyObject(this.state.takuzu)
       takuzu[i][j].value = (item.value === -1 || item.value === 1) ? 0 : 1
       this.setState({takuzu}, () =>
@@ -148,6 +150,7 @@ class Play extends Component {
           date: new Date(),
           data: takuzu
         }
+        this.setState({isSummit: true})
         this.props.addScore(score)
         this.props.gotoResults()
       }
