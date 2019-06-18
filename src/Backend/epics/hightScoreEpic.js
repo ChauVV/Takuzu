@@ -18,7 +18,7 @@ const addScore = async (score) => {
       if (heightScores.scores.length < 5) {
         heightScores.scores.push(score)
       } else {
-        if (heightScores.scores[heightScores.scores.length - 1].secondsRemaining < score.secondsRemaining) {
+        if (heightScores.scores[heightScores.scores.length - 1].secondsRemaining > score.secondsRemaining) {
           heightScores.scores[heightScores.scores.length - 1] = score
         }
       }
