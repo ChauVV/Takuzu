@@ -129,10 +129,12 @@ class Play extends Component {
     }
   }
   onPressCell = (item, i, j) => {
-    let takuzu = copyObject(this.state.takuzu)
-    takuzu[i][j].value = (item.value === -1 || item.value === 1) ? 0 : 1
-    this.setState({takuzu}, () =>
-      this.checkRules())
+    if (this.intervalHandle) {
+      let takuzu = copyObject(this.state.takuzu)
+      takuzu[i][j].value = (item.value === -1 || item.value === 1) ? 0 : 1
+      this.setState({takuzu}, () =>
+        this.checkRules())
+    }
   }
   checkRules = () => {
     try {
