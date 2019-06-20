@@ -2,9 +2,16 @@ package com.takuzu;
 
 import com.facebook.react.ReactActivity;
 import android.content.Intent;
+import android.Manifest;
 import android.os.Bundle;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
 import org.devio.rn.splashscreen.SplashScreen;
+import java.util.List;
 
 public class MainActivity extends ReactActivity {
 
@@ -25,6 +32,21 @@ public class MainActivity extends ReactActivity {
 
      @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Dexter.withActivity(MainActivity.this)
+                .withPermissions(
+                        Manifest.permission.SYSTEM_ALERT_WINDOW
+                        )
+                .withListener(new MultiplePermissionsListener() {
+                    @Override
+                    public void onPermissionsChecked(MultiplePermissionsReport report) {
+
+                    }
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+
+                    }
+                })
+                .check();
 
         SplashScreen.show(this);
         super.onCreate(savedInstanceState);

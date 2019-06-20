@@ -7,6 +7,7 @@ $ yarn
 $ cd ios && pod install
 
 $ npm run ios
+$ npm run and
 ```
 
 
@@ -14,4 +15,5 @@ $ npm run ios
 | Screen Home | Screen Play | Screen Results |
 | :---: |:---:|:---:|
 | <img src="./screenshots/ios1.png" alt="Screenshot of the example app"/> |<img src="./screenshots/ios2.png" alt="Screenshot of the example app"/> |<img src="./screenshots/ios3.png" alt="Screenshot of the example app"/> |
+| <img src="./screenshots/and1.jpg" alt="Screenshot of the example app"/> |<img src="./screenshots/and2.jpg" alt="Screenshot of the example app"/> |<img src="./screenshots/and3.jpg" alt="Screenshot of the example app"/> |
 

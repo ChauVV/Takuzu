@@ -307,16 +307,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     width: '80%',
-    marginTop: scale(80)
+    marginTop: scale(45)
   },
   timerTitle: {
-    marginTop: height(17),
+    marginTop: height(15),
     color: THEME_DEFAULT.colorPrimary,
     fontSize: THEME_DEFAULT.fontSizeLarge,
     fontWeight: 'bold'
   },
   timer: {
-    marginBottom: scale(40),
+    marginBottom: scale(35),
     color: THEME_DEFAULT.colorPrimary,
     fontSize: THEME_DEFAULT.fontSizeLarge
   },

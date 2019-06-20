@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: scale(120),
-    height: '10%',
+    paddingVertical: scale(10),
 
     borderWidth: 1,
     borderRadius: 5,

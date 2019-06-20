@@ -22,7 +22,7 @@
     "prop-types": "^15.6.2",
     "react": "16.8.3",
     "react-native": "0.59.9",
-    "react-native-device-info": "^0.25.1",
+    "react-native-device-info": "^2.1.2",
     "react-native-iphone-x-helper": "^1.2.0",
     "react-native-modal": "^7.0.2",
     "react-native-simple-store": "^2.0.0",
