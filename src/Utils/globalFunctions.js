@@ -12,7 +12,7 @@ export const copyObject = (A = {}) => {
 */
 export const strToTime = (time) => {
   try {
-    return moment(Date.parse(time)).format('hh:mm   DD/MM/YYYY')
+    return moment(Date.parse(time)).format('hh:mm DD/MM/YYYY')
   } catch (error) {
     return time
   }
